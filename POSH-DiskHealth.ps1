@@ -1,5 +1,4 @@
-[regex]$regex = "4&[0-f]{8}&0&0[0-9]0{4}"
-
+[regex]$regex = "4&[0-f]{8}&0&0[0-f]0{4}"
 
 ForEach ($UniqueDriveID in ((Get-Disk).ObjectId | Select-String -Pattern $regex).Matches.Value) {
     $Disk = Get-Disk | Where ObjectId -Like "*$UniqueDriveID*"
