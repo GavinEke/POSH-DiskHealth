@@ -1,22 +1,41 @@
 #Requires -RunAsAdministrator
-#Requires -Version 3
+#Requires -Version 4
 
 <#PSScriptInfo
-    .DESCRIPTION 
-    Performs multiple checks of local disks to predict if a disk might need replacing. Windows 8/Server 2012+.
-    .VERSION 
-    1.1.0.0
-    .GUID 
-    ca58874b-60b2-4177-8749-3771db294d1a
-    .AUTHOR 
-    Gavin Eke @GavinEke
-    .TAGS 
-    POSH-DiskHealth
-    .RELEASENOTES
-    https://github.com/GavinEke/POSH-DiskHealth
+
+.VERSION 1.2.0
+
+.GUID ca58874b-60b2-4177-8749-3771db294d1a
+
+.AUTHOR Gavin Eke @GavinEke
+
+.COMPANYNAME 
+
+.COPYRIGHT 
+
+.TAGS POSH-DiskHealth
+
+.LICENSEURI 
+
+.PROJECTURI https://github.com/GavinEke/POSH-DiskHealth
+
+.ICONURI 
+
+.EXTERNALMODULEDEPENDENCIES 
+
+.REQUIREDSCRIPTS 
+
+.EXTERNALSCRIPTDEPENDENCIES 
+
+.RELEASENOTES
+
+.DESCRIPTION 
+ Performs multiple checks of local disks to predict if a disk might need replacing. Windows 8.1/Server 2012+.
+
 #>
 
-[regex]$regex = "4&[0-f]{8}&0&0[0-f]0{4}"
+
+[regex]$regex = "4&[0-f]{7,8}&0&0[0-f]0{4}"
 
 ForEach ($UniqueDriveID in ((Get-Disk).ObjectId | Select-String -Pattern $regex).Matches.Value) {
     $Disk = Get-Disk | Where-Object ObjectId -Like "*$UniqueDriveID*"
